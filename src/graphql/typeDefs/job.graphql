@@ -3,6 +3,7 @@ type Job {
   title: String!
   description: String!
   employerId: Int!
+  employer: Employer!
 }
 
 type Query {

@@ -1,4 +1,5 @@
 import { prisma } from "../../db/client";
+import { Context } from "../context";
 
 export const jobResolver = {
   Query: {
@@ -34,5 +35,14 @@ export const jobResolver = {
       }),
     deleteJob: (_: unknown, args: { id: number }) =>
       prisma.job.delete({ where: { id: args.id } }),
+  },
+  Job: {
+    employer: (
+      parent: { employerId: number },
+      _: unknown,
+      context: Context
+    ) => {
+      return context.loaders.employerById.load(parent.employerId);
+    },
   },
 };
