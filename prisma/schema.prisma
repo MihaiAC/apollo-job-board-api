@@ -10,6 +10,6 @@ datasource db {
 model Employer {
   id            Int    @id @default(autoincrement())
   name          String
-  contact_email String
+  contactEmail String
   industry      String
 }

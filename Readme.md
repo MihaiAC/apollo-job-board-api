@@ -21,6 +21,17 @@ Here, I will only talk about the differences between these two projects and will
 
 5. Watch for changes with `npx tsx watch src/index.ts`.
 
+6. Tearing down DB + re-running migration.
+
+```
+docker compose exec postgres_dev psql -U postgres -d job_board -c "\dt"
+docker compose exec apollo_job_board_api npx prisma migrate reset --force #overkill?
+docker compose exec apollo_job_board_api npx prisma db push
+docker compose exec apollo_job_board_api npx prisma generate
+docker compose exec postgres_dev psql -U postgres -d job_board -c "\dt"
+
+```
+
 ## References
 
 1. [Prisma + Apollo minimal example](https://www.prisma.io/apollo).
