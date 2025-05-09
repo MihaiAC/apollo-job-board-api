@@ -7,7 +7,16 @@ export function createJobsByEmployerLoader(): DataLoader<number, Job[]> {
     const jobs = await prisma.job.findMany({
       where: { employerId: { in: employerIds as number[] } },
     });
-    const map = new Map(jobs.map((job: Job) => [job.id, job]));
-    return employerIds.map((employerId) => map.get(employerId));
+
+    const jobsMap: Record<number, Job[]> = {};
+
+    for (const job of jobs) {
+      if (!jobsMap[job.employerId]) {
+        jobsMap[job.employerId] = [];
+      }
+      jobsMap[job.employerId].push(job);
+    }
+
+    return employerIds.map((id) => jobsMap[id] || []);
   });
 }

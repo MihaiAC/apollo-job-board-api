@@ -38,6 +38,8 @@ Extra packages: dataloader, @graphql-tools/merge (merge multiple graphql schema 
 
 1. How are errors handled here? In Strawberry + FastAPI I would get pretty ok errors by default (not too informative, not too short, just right). With this stack do I need to explicitly check every error and return a human readable version of it?
 
+2. How to init db with some dummy data on load? Read something about "seed".
+
 ## References
 
 1. [Prisma + Apollo minimal example](https://www.prisma.io/apollo).
