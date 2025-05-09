@@ -28,7 +28,6 @@ services:
     volumes:
       - .:/app
       - /app/node_modules
-    command: ["sh", "-c", "wait-on tcp:$POSTGRES_HOST:$POSTGRES_PORT && npx tsx watch src/index.ts"]
 
 volumes:
   postgres_data:

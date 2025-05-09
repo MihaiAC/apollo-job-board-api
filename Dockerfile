@@ -1,5 +1,4 @@
 FROM node:22
-
 WORKDIR /app
 
 COPY package.json package-lock.json ./
@@ -8,6 +7,7 @@ RUN npm install -g wait-on
 
 COPY . .
 
-EXPOSE 4000
+# Use entrypoint script
+ENTRYPOINT ["./entrypoint.sh"]
 
-CMD ["sh", "-c", "wait-on tcp:$POSTGRES_HOST:$POSTGRES_PORT && npx tsx watch src/index.ts"]
+EXPOSE 4000

@@ -1,6 +1,6 @@
 import { prisma } from "../../db/client";
 
-export const employerResolvers = {
+export const employerResolver = {
   Query: {
     employers: async () => {
       return await prisma.employer.findMany();

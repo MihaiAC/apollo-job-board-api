@@ -27,6 +27,18 @@ Drop tables -> run `npx prisma migrate reset --force ` (optional?) -> run `npx p
 
 Put together into `./reset-db.sh`.
 
+7. Adding Jobs and dataloaders.
+
+Extra packages: dataloader, @graphql-tools/merge (merge multiple graphql schema defs into one), @graphql-tools/load-files (for loading the files to be merged).
+
+8. Correct PrismaClient import from the generated prisma files.
+   `import { PrismaClient } from "../../prisma/generated";`
+
+## Remaining questions
+
+1. How are errors handled here? In Strawberry + FastAPI I would get pretty ok errors by default (not too informative, not too short, just right). With this stack do I need to explicitly check every error and return a human readable version of it?
+
 ## References
 
 1. [Prisma + Apollo minimal example](https://www.prisma.io/apollo).
+2. [PrismaClient correct import](https://github.com/prisma/prisma/discussions/19669).
