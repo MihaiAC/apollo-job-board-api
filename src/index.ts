@@ -1,6 +1,6 @@
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
-import { schema } from "./graphql";
+import { schema } from "./graphql/schema";
 
 // console.log("tsx watch works!");
 
