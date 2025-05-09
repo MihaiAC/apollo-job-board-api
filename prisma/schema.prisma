@@ -1,5 +1,6 @@
 generator client {
   provider = "prisma-client-js"
+  output   = "./generated"
 }
 
 datasource db {
@@ -8,8 +9,17 @@ datasource db {
 }
 
 model Employer {
-  id            Int    @id @default(autoincrement())
-  name          String
+  id           Int    @id @default(autoincrement())
+  name         String
   contactEmail String
-  industry      String
+  industry     String
+  jobs         Job[]  @relation("EmployerJobs")
+}
+
+model Job {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  employerId  Int
+  employer    Employer @relation("EmployerJobs", fields: [employerId], references: [id])
 }
