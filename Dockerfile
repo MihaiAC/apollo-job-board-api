@@ -8,9 +8,6 @@ RUN npm install -g wait-on
 
 COPY . .
 
-# Run Prisma Generate to create the client
-RUN npx prisma generate
-
 EXPOSE 4000
 
 CMD ["sh", "-c", "wait-on tcp:$POSTGRES_HOST:$POSTGRES_PORT && npx tsx watch src/index.ts"]

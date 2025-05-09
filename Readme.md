@@ -21,16 +21,11 @@ Here, I will only talk about the differences between these two projects and will
 
 5. Watch for changes with `npx tsx watch src/index.ts`.
 
-6. Tearing down DB + re-running migration.
+6. Handling schema changes.
 
-```
-docker compose exec postgres_dev psql -U postgres -d job_board -c "\dt"
-docker compose exec apollo_job_board_api npx prisma migrate reset --force #overkill?
-docker compose exec apollo_job_board_api npx prisma db push
-docker compose exec apollo_job_board_api npx prisma generate
-docker compose exec postgres_dev psql -U postgres -d job_board -c "\dt"
+Drop tables -> run `npx prisma migrate reset --force ` (optional?) -> run `npx prisma generate` (re-generates the Prisma client) -> run `npx prisma db push` (syncs Prisma schema with db schema, good for quick prototyping).
 
-```
+Put together into `./reset-db.sh`.
 
 ## References
 
