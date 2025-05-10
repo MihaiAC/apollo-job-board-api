@@ -1,0 +1,16 @@
+type Application {
+  id: Int!
+  userId: Int!
+  jobId: Int!
+  user: User!
+  job: Job!
+}
+
+type Query {
+  applications: [Application!]!
+}
+
+type Mutation {
+  addApplication(userId: Int!, jobId: Int!): Application!
+  deleteApplication(id: Int!): Application!
+}

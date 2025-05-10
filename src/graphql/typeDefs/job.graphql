@@ -4,6 +4,7 @@ type Job {
   description: String!
   employerId: Int!
   employer: Employer!
+  applications: [Application!]!
 }
 
 type Query {

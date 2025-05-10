@@ -1,8 +1,8 @@
 import DataLoader from "dataloader";
 import { prisma } from "../../db/client";
-import { Job } from "@prisma/client";
+import { Job } from "../../../prisma/generated";
 
-export function createJobsByEmployerLoader(): DataLoader<number, Job[]> {
+export function createJobsByEmployerIdLoader(): DataLoader<number, Job[]> {
   return new DataLoader(async (employerIds: readonly number[]) => {
     const jobs = await prisma.job.findMany({
       where: { employerId: { in: employerIds as number[] } },
@@ -18,5 +18,20 @@ export function createJobsByEmployerLoader(): DataLoader<number, Job[]> {
     }
 
     return employerIds.map((id) => jobsMap[id] || []);
+  });
+}
+
+export function createJobByIdLoader(): DataLoader<number, Job | null> {
+  return new DataLoader(async (jobIds: readonly number[]) => {
+    const jobs = await prisma.job.findMany({
+      where: { id: { in: jobIds as number[] } },
+    });
+
+    const jobMap = new Map<number, Job>();
+    for (const job of jobs) {
+      jobMap.set(job.id, job);
+    }
+
+    return jobIds.map((id) => jobMap.get(id) || null);
   });
 }

@@ -44,5 +44,8 @@ export const jobResolver = {
     ) => {
       return context.loaders.employerById.load(parent.employerId);
     },
+    applications: (parent: { id: number }, _: unknown, context: Context) => {
+      return context.loaders.applicationsByJob.load(parent.id);
+    },
   },
 };

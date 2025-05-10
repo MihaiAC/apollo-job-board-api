@@ -1,0 +1,33 @@
+enum Role {
+  ADMIN
+  MANAGER
+  CANDIDATE
+}
+
+type User {
+  id: Int!
+  username: String!
+  email: String!
+  cvUrl: String
+  role: Role!
+  applications: [Application!]!
+  manages: Employer
+}
+
+type Query {
+  users: [User!]!
+  user(id: Int!): User
+}
+
+type Mutation {
+  createUser(
+    username: String!
+    password: String!
+    email: String!
+    cvUrl: String
+    role: Role!
+  ): User!
+  loginUser(username: String!, password: String!): String!
+  updateUser(id: Int!, username: String, cvUrl: String): User
+  deleteUser(id: Int!): User!
+}

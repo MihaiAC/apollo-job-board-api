@@ -3,7 +3,9 @@ type Employer {
   name: String!
   contactEmail: String!
   industry: String!
+  managerId: Int!
   jobs: [Job!]!
+  manager: User!
 }
 
 type Query {
@@ -16,6 +18,7 @@ type Mutation {
     name: String!
     contactEmail: String!
     industry: String!
+    managerId: Int!
   ): Employer!
   updateEmployer(
     id: Int!

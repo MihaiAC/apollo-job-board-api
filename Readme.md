@@ -36,19 +36,25 @@ Extra packages: dataloader, @graphql-tools/merge (merge multiple graphql schema 
 
 9. Can add an Enum as a Prisma field type then import it from the generated files.
 
-10. Adding DB indexes with Prisma is pretty easy (e.g: `@@index([userId])`)
+10. Adding DB indexes with Prisma is pretty easy (e.g: `@@index([userId])`).
 
-## Remaining questions
+11. Added an additional "MANAGER" user role that manages a single employer and will be able to post/delete jobs on their behalf.
+
+12. seed.ts to automatically add some data to the DB when restarting the container and when running `./reset-db.sh`.
+
+## Remaining questions and objectives
 
 1. Q: How are errors handled here? In Strawberry + FastAPI I would get pretty ok errors by default (not too informative, not too short, just right). With this stack do I need to explicitly check every error and return a human readable version of it?
 
 A: Errors are not nice, full stack trace in the graphQL response (not sane). Package to fix that? _sigh_ vs manually handling every error code?
 
-2. How to init db with some dummy data on load? Read something about "seed".
+2. Need to validate field length on entity creation and update. Django and SQLAlchemy could specify them then and there.
 
 3. How to add email validation for user and employer email?
 
 4. How to set length limits on DB fields?
+
+5. Stretch goal: handle saving files (CVs). Again, something that Django did by default.
 
 ## References
 

@@ -1,9 +1,14 @@
 import type DataLoader from "dataloader";
-import type { Employer, Job } from "@prisma/client";
+import type { Employer, Job, Application, User } from "../../prisma/generated";
 
 export interface Context {
   loaders: {
-    employerById: DataLoader<number, Employer | undefined>;
+    employerById: DataLoader<number, Employer | null>;
     jobsByEmployer: DataLoader<number, Job[]>;
+    userById: DataLoader<number, User | null>;
+    applicationsByUser: DataLoader<number, Application[]>;
+    applicationsByJob: DataLoader<number, Application[]>;
+    employerByManagerId: DataLoader<number, Employer | null>;
+    jobById: DataLoader<number, Job | null>;
   };
 }
