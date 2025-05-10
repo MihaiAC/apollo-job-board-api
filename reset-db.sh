@@ -8,8 +8,12 @@ docker compose exec postgres_dev psql -U postgres -c "DROP SCHEMA public CASCADE
 echo "Regenerating Prisma client and pushing schema..."
 docker compose exec app sh -c "
   npx prisma generate &&
-  npx prisma db push
+  npx prisma db push --force-reset
 "
+
+# Run the seed script
+echo "Seeding the database..."
+docker compose exec app sh -c "npx tsx prisma/seed.ts"
 
 # Check if the reset was successful
 if [ $? -eq 0 ]; then

@@ -39,11 +39,12 @@
     "tsx": "^4.19.4",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.32.0",
-    "wait-on": "^8.0.3"
-  },
-  "dependencies": {
+    "wait-on": "^8.0.3",
     "@graphql-tools/load-files": "^7.0.1",
     "@graphql-tools/merge": "^9.0.24",
+    "@types/bcrypt": "^5.0.2",
+    "bcrypt": "^5.1.1",
     "dataloader": "^2.2.3"
-  }
+  },
+  "dependencies": {}
 }

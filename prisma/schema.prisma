@@ -13,9 +13,11 @@ model Employer {
   name         String
   contactEmail String   @unique
   industry     String
+  managerId    Int      @unique
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
   jobs         Job[]    @relation("EmployerJobs")
+  manager      User     @relation("EmployerManager", fields: [managerId], references: [id], onDelete: Cascade)
 }
 
 model Job {
@@ -37,9 +39,11 @@ model User {
   email        String        @unique
   cvUrl        String?
   role         Role
+  passwordHash String
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
   applications Application[] @relation("ApplicationsUser")
+  manages      Employer?     @relation("EmployerManager")
 }
 
 model Application {
