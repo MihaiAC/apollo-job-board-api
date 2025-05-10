@@ -34,11 +34,21 @@ Extra packages: dataloader, @graphql-tools/merge (merge multiple graphql schema 
 8. Correct PrismaClient import from the generated prisma files.
    `import { PrismaClient } from "../../prisma/generated";`
 
+9. Can add an Enum as a Prisma field type then import it from the generated files.
+
+10. Adding DB indexes with Prisma is pretty easy (e.g: `@@index([userId])`)
+
 ## Remaining questions
 
-1. How are errors handled here? In Strawberry + FastAPI I would get pretty ok errors by default (not too informative, not too short, just right). With this stack do I need to explicitly check every error and return a human readable version of it?
+1. Q: How are errors handled here? In Strawberry + FastAPI I would get pretty ok errors by default (not too informative, not too short, just right). With this stack do I need to explicitly check every error and return a human readable version of it?
+
+A: Errors are not nice, full stack trace in the graphQL response (not sane). Package to fix that? _sigh_ vs manually handling every error code?
 
 2. How to init db with some dummy data on load? Read something about "seed".
+
+3. How to add email validation for user and employer email?
+
+4. How to set length limits on DB fields?
 
 ## References
 

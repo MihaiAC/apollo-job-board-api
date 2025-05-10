@@ -9,17 +9,55 @@ datasource db {
 }
 
 model Employer {
-  id           Int    @id @default(autoincrement())
+  id           Int      @id @default(autoincrement())
   name         String
-  contactEmail String
+  contactEmail String   @unique
   industry     String
-  jobs         Job[]  @relation("EmployerJobs")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  jobs         Job[]    @relation("EmployerJobs")
 }
 
 model Job {
-  id          Int      @id @default(autoincrement())
-  title       String
-  description String
-  employerId  Int
-  employer    Employer @relation("EmployerJobs", fields: [employerId], references: [id])
+  id           Int           @id @default(autoincrement())
+  title        String
+  description  String
+  employerId   Int
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  employer     Employer      @relation("EmployerJobs", fields: [employerId], references: [id], onDelete: Cascade)
+  applications Application[] @relation("ApplicationJob")
+
+  @@index([employerId])
+}
+
+model User {
+  id           Int           @id @default(autoincrement())
+  username     String        @unique
+  email        String        @unique
+  cvUrl        String?
+  role         Role
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  applications Application[] @relation("ApplicationsUser")
+}
+
+model Application {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  jobId     Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation("ApplicationsUser", fields: [userId], references: [id], onDelete: Cascade)
+  job       Job      @relation("ApplicationJob", fields: [jobId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, jobId])
+  @@index([userId])
+  @@index([jobId])
+}
+
+enum Role {
+  ADMIN
+  MANAGER
+  CANDIDATE
 }
