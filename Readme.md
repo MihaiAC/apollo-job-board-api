@@ -42,11 +42,9 @@ Extra packages: dataloader, @graphql-tools/merge (merge multiple graphql schema 
 
 12. seed.ts to automatically add some data to the DB when restarting the container and when running `./reset-db.sh`.
 
-## Remaining questions and objectives
+## TODOs
 
-1. Q: How are errors handled here? In Strawberry + FastAPI I would get pretty ok errors by default (not too informative, not too short, just right). With this stack do I need to explicitly check every error and return a human readable version of it?
-
-A: Errors are not nice, full stack trace in the graphQL response (not sane). Package to fix that? _sigh_ vs manually handling every error code?
+1. Errors are not handled in a nice way by default, have to wrap errors if you don't want the full stack trace in the GraphQL response.
 
 2. Need to validate field length on entity creation and update. Django and SQLAlchemy could specify them then and there.
 
@@ -55,6 +53,10 @@ A: Errors are not nice, full stack trace in the graphQL response (not sane). Pac
 4. How to set length limits on DB fields?
 
 5. Stretch goal: handle saving files (CVs). Again, something that Django did by default.
+
+6. Could de-normalize further and add the manager id to a job so you don't need to perform and extra join on some queries.
+
+7. Need to add a few tests to get the hang of it with this stack + to test some access strategies.
 
 ## References
 

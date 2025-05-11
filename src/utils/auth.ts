@@ -2,6 +2,8 @@ import jwt, { JwtPayload as BaseJwtPayload, Algorithm } from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { createSecretKey } from "crypto";
 import { JWT_KEY, JWT_ALGORITHM, JWT_EXPIRES_MINUTES } from "../config/config";
+import { Context } from "../graphql/context";
+import { GraphQLFieldResolver, GraphQLResolveInfo } from "graphql";
 
 interface JwtPayload extends BaseJwtPayload {
   id: number;
@@ -44,4 +46,16 @@ export function verifyToken(token: string): JwtPayload {
   }
 
   return decoded as JwtPayload;
+}
+
+export function requireRole<Source, Args, Return>(
+  roles: string[],
+  resolver: GraphQLFieldResolver<Source, Context, Args, Return>
+): GraphQLFieldResolver<Source, Context, Args, Return> {
+  return (source, args, context, info) => {
+    if (!context.auth || !roles.includes(context.auth.role)) {
+      throw new Error("Unauthorized");
+    }
+    return resolver(source, args, context, info);
+  };
 }
