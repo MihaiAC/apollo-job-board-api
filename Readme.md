@@ -4,7 +4,7 @@ A practice GraphQL API using Apollo, Express, and Prisma.
 
 Aim of the project is to get some experience with a Node.js stack by recreating my previous GraphQL [project](https://github.com/MihaiAC/strawberry-job-board-api), which used Strawberry, FastAPI, and SQLAlchemy.
 
-Here, I will only talk about the differences between these two projects and will focus less on testing.
+I will focus more on getting something done quick and less on testing this time around.
 
 ## Diffs
 
@@ -42,21 +42,22 @@ Extra packages: dataloader, @graphql-tools/merge (merge multiple graphql schema 
 
 12. seed.ts to automatically add some data to the DB when restarting the container and when running `./reset-db.sh`.
 
-## TODOs
+13. Trying to make a simple test work proved to be pretty painful. There is a mismatch between Apollo@4(?) and Express@5 - they don't seem to be fully compatible yet. Wrapping up the server init operations in an "app" variable cut the access to the Apollo UI - still don't fully understand why. I could still send requests with Postman, but with worse UX.
 
-1. Errors are not handled in a nice way by default, have to wrap errors if you don't want the full stack trace in the GraphQL response.
+Maybe will revisit this in the future, the main objective of getting some Node practice in was achieved.
 
-2. Need to validate field length on entity creation and update. Django and SQLAlchemy could specify them then and there.
+## Hanging TODOs
 
-3. How to add email validation for user and employer email?
+1. Errors are not handled in a nice way by default, have to wrap errors if you don't want the full stack trace in the GraphQL response (trivial, boring work, skipped)
 
-4. How to set length limits on DB fields?
+2. Need to validate field length on entity creation and update. Django and SQLAlchemy could specify them then and there. (trivial, skipped) Could use something like `@db.VarChar(255)` straight in the schema.
 
-5. Stretch goal: handle saving files (CVs). Again, something that Django did by default.
+3. Q: How to add email validation for user and employer email?
+   A: There's a package for that! "validator"
 
-6. Could de-normalize further and add the manager id to a job so you don't need to perform and extra join on some queries.
+4. Stretch goal: handle saving files (CVs). Again, something that Django did by default. There's also a package for that! `multer`
 
-7. Need to add a few tests to get the hang of it with this stack + to test some access strategies.
+5. Could de-normalize further and add the manager id to a job so you don't need to perform and extra join on some queries.
 
 ## References
 
